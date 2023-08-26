@@ -9,7 +9,11 @@ title.forEach((item) => {
   if (item.innerText.match(domainPattern)) {
     arr.push(item.innerText.match(domainPattern));
   }
-  //window.location.href = button.href;
+
+  localStorage.setItem("arr", JSON.stringify(arr));
+  window.location.href = button.href;
+  let newArr = localStorage.getItem("arr");
+  JSON.parse(newArr).push(item.innerText.match(domainPattern));
 });
 
 console.log(arr);

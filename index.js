@@ -1,19 +1,17 @@
 const title = document.querySelectorAll(".title");
 const button = document.querySelector(".next-page");
 
-const arr = [];
+const arr = localStorage.getItem("arr");
+const newArr = JSON.parse(arr);
 
 title.forEach((item) => {
-  const domainPattern =
+  let domainPattern =
     /(?:(?:https?|ftp):\/\/)?(?:www\.)?([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]+)/g;
-  if (item.innerText.match(domainPattern)) {
-    arr.push(item.innerText.match(domainPattern));
+  let res = item.innerText.match(domainPattern);
+  if (res) {
+    Array(newArr).push(res[0]);
   }
-
-  localStorage.setItem("arr", JSON.stringify(arr));
-  window.location.href = button.href;
-  let newArr = localStorage.getItem("arr");
-  JSON.parse(newArr).push(item.innerText.match(domainPattern));
+  localStorage.setItem("arr", JSON.stringify(newArr));
 });
 
-console.log(arr);
+window.location.href = button.href;
